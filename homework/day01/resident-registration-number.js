@@ -7,11 +7,7 @@ function containHyphen(regNumber) {
   }
 }
 
-function checkNumber(regNumber) {
-  let arr = regNumber.split("-");
-  const frontNumber = arr[0];
-  const backNumber = arr[1];
-
+function checkNumber(frontNumber, backNumber) {
   if (frontNumber.length === 6 && backNumber.length === 7) {
     return true;
   } else {
@@ -20,11 +16,7 @@ function checkNumber(regNumber) {
   }
 }
 
-function hideBackNumber(regNumber) {
-  let arr = regNumber.split("-");
-  const frontNumber = arr[0];
-  const backNumber = arr[1];
-
+function hideBackNumber(frontNumber, backNumber) {
   let result = "";
 
   for (let i = 0; i < backNumber.length; i++) {
@@ -40,15 +32,15 @@ function hideBackNumber(regNumber) {
 
 function hideRegistrationNumber(regNumber) {
   //가운데 - 포함여부 체크
-  const isValid = containHyphen(regNumber);
+  if (containHyphen(regNumber)) {
+    let arr = regNumber.split("-");
+    const frontNumber = arr[0];
+    const backNumber = arr[1];
 
-  if (isValid) {
     //앞자리 6자리, 뒷자리 7자리 체크
-    const isValid2 = checkNumber(regNumber);
-
-    if (isValid2) {
+    if (checkNumber(frontNumber, backNumber)) {
       //끝 6자리 가리는 기능
-      console.log(hideBackNumber(regNumber));
+      console.log(hideBackNumber(frontNumber, backNumber));
     }
   }
 }
