@@ -1,0 +1,370 @@
+1. 철수의 나이는 몇살인가요?(나이만 조회해 주세요.)
+query{
+  fetchProfile(name:"철수") {
+    age
+  }
+}
+
+2. 영희의 학교는 어디인가요?(학교만 조회해 주세요.)
+query{
+  fetchProfile(name:"영희") {
+    school
+  }
+}
+
+3. 3번 게시글의 내용과 작성일이 무엇인가요?(내용과 작성일만 조회해 주세요.)
+query{
+  fetchBoard(number:3){
+    contents,
+    createdAt
+  }
+}
+
+4. 본인의 이름으로 프로필을 작성해 보세요.
+mutation{
+  createProfile(name:"김지웅",age:31,school:"성균관"){
+    _id,
+    number,
+    message
+  }
+}
+
+5. 본인의 이름으로 게시글을 작성해 보세요.
+mutation{
+  createBoard(writer:"김지웅", title:"안녕하세요",contents:"김지웅입니다."){
+    _id,
+    number,
+    message
+  }
+}
+
+6. 자신의 프로필을 조회해 보세요.
+query{
+  fetchProfile(name:"김지웅"){
+    number,
+    name,
+    age,
+    school
+  }
+}
+
+7. 자신의 게시글을 조회해 보세요.
+query{
+  fetchBoard(number:82482){
+    number,
+    writer,
+    title,
+    contents,
+    like,
+    createdAt
+  }
+}
+
+8. 본인의 프로필에서, 학교를 자신이 졸업한 초등학교로 바꿔보세요.
+mutation{
+  updateProfile(name:"김지웅",age:31,school:"혜화초"){
+    _id,
+    number,
+    message
+  }
+}
+
+9. 본인의 게시글에서, 제목과 내용을 바꿔보세요.
+mutation{
+  updateBoard(number:82482, writer:"김지웅",title:"제목수정",contents:"내용수정"){
+    _id,
+    number,
+    message
+  }
+}
+
+10. 자신이 좋아하는 만화 주인공으로 프로필을 작성해 보세요.
+mutation {
+  createProfile(name:"마루코",age:9,school:"모름"){
+    _id,
+    number,
+    message
+  }
+}
+
+11. 위 10번에서 작성한 프로필을 삭제해 보세요.
+mutation {
+  deleteProfile(name:"마루코") {
+    _id,
+    number,
+    message
+  }
+}
+
+12. 상품을 하나 만들어 보세요.
+mutation {
+  createProduct(seller:"김지웅",createProductInput:{
+    name:"마우스",
+    detail:"게이밍",
+    price:5000
+  }) {
+    _id,
+    number,
+    message
+  }
+}
+
+13. 위 12번에서 만들었던 상품의 가격을 500원 인상해 보세요.
+mutation {
+  updateProduct(productId:"23d84bf7-8aea-421f-8190-40a5830df79d", updateProductInput:{
+    price:5500
+  }) {
+    _id,
+    number,
+    message
+  }
+}
+
+14. 위에서 만든 상품을 조회하되, 가격만 조회해 보세요.
+query {
+  fetchProduct(productId:"23d84bf7-8aea-421f-8190-40a5830df79d") {
+    price
+  }
+}
+
+15. 조회했던 상품을 삭제해 보세요.
+mutation {
+  deleteProduct(productId:"23d84bf7-8aea-421f-8190-40a5830df79d") {
+    _id,
+    number,
+    message
+  }
+}
+
+16. 삭제한 상품이 정말로 삭제되었는지 다시 한번 조회해 보세요.
+query {
+  fetchProduct(productId:"23d84bf7-8aea-421f-8190-40a5830df79d") {
+  _id,
+  seller,
+    name,
+    detail,
+    price,
+    createdAt
+  }
+}
+
+17. 게시물 목록 중, 2페이지를 조회해 보세요.
+query {
+  fetchBoards(page:2) {
+    number,
+    writer,
+    title,
+    contents,
+    like,
+    createdAt
+  }
+}
+
+{
+  "data": {
+    "fetchBoards": [
+      {
+        "number": 82476,
+        "writer": "신홍석",
+        "title": "몰라",
+        "contents": "또몰라",
+        "like": 0,
+        "createdAt": "2022-03-16T09:43:24.885Z"
+      },
+      {
+        "number": 82475,
+        "writer": "신홍석",
+        "title": "코드캠프",
+        "contents": "코드캠프 백엔드",
+        "like": 0,
+        "createdAt": "2022-03-16T09:43:24.644Z"
+      },
+      {
+        "number": 82474,
+        "writer": "현민",
+        "title": "제목수정",
+        "contents": "내용수정",
+        "like": 0,
+        "createdAt": "2022-03-16T09:17:53.589Z"
+      },
+      {
+        "number": 82473,
+        "writer": "재형",
+        "title": "짱수",
+        "contents": "뭘봐",
+        "like": 0,
+        "createdAt": "2022-03-16T09:12:52.937Z"
+      },
+      {
+        "number": 82471,
+        "writer": "재형",
+        "title": "짱수",
+        "contents": "뭘봐",
+        "like": 0,
+        "createdAt": "2022-03-16T09:12:52.658Z"
+      },
+      {
+        "number": 82470,
+        "writer": "재형",
+        "title": "짱수",
+        "contents": "뭘봐",
+        "like": 0,
+        "createdAt": "2022-03-16T09:12:52.521Z"
+      },
+      {
+        "number": 82469,
+        "writer": "재형",
+        "title": "짱수",
+        "contents": "뭘봐",
+        "like": 0,
+        "createdAt": "2022-03-16T09:12:52.386Z"
+      },
+      {
+        "number": 82468,
+        "writer": "재형",
+        "title": "짱수",
+        "contents": "뭘봐",
+        "like": 0,
+        "createdAt": "2022-03-16T09:12:52.241Z"
+      },
+      {
+        "number": 82467,
+        "writer": "재형",
+        "title": "짱수",
+        "contents": "뭘봐",
+        "like": 0,
+        "createdAt": "2022-03-16T09:12:52.105Z"
+      },
+      {
+        "number": 82466,
+        "writer": "재형",
+        "title": "짱수",
+        "contents": "뭘봐",
+        "like": 0,
+        "createdAt": "2022-03-16T09:12:51.967Z"
+      }
+    ]
+  }
+}
+
+18. 게시물 목록을 조회할 때, page를 입력하지 않으면, 어떤 결과가 발생하는지 확인해 보세요.
+query {
+  fetchBoards {
+    number,
+    writer,
+    title,
+    contents,
+    like,
+    createdAt
+  }
+}
+
+//1페이지의 결과가 나옴
+{
+  "data": {
+    "fetchBoards": [
+      {
+        "number": 82486,
+        "writer": "문성민",
+        "title": "3일차 과제",
+        "contents": "playground사용해보기",
+        "like": 0,
+        "createdAt": "2022-03-16T10:01:35.811Z"
+      },
+      {
+        "number": 82485,
+        "writer": "수리",
+        "title": "엉엉",
+        "contents": "집에가고싶어요",
+        "like": 0,
+        "createdAt": "2022-03-16T09:59:14.502Z"
+      },
+      {
+        "number": 82484,
+        "writer": "동현",
+        "title": "안녕하세요",
+        "contents": "반갑습니다",
+        "like": 0,
+        "createdAt": "2022-03-16T09:52:57.653Z"
+      },
+      {
+        "number": 82483,
+        "writer": "김다혜",
+        "title": "222",
+        "contents": "111",
+        "like": 0,
+        "createdAt": "2022-03-16T09:52:29.276Z"
+      },
+      {
+        "number": 82482,
+        "writer": "김지웅",
+        "title": "제목수정",
+        "contents": "내용수정",
+        "like": 0,
+        "createdAt": "2022-03-16T09:51:30.242Z"
+      },
+      {
+        "number": 82481,
+        "writer": "유도근",
+        "title": "제목 둘둘하나",
+        "contents": "내용도 바꿈",
+        "like": 0,
+        "createdAt": "2022-03-16T09:48:33.557Z"
+      },
+      {
+        "number": 82480,
+        "writer": "여진",
+        "title": "하나",
+        "contents": "둘",
+        "like": 0,
+        "createdAt": "2022-03-16T09:45:39.013Z"
+      },
+      {
+        "number": 82479,
+        "writer": "여진",
+        "title": "제목",
+        "contents": "내용",
+        "like": 0,
+        "createdAt": "2022-03-16T09:45:17.999Z"
+      },
+      {
+        "number": 82478,
+        "writer": "정세진",
+        "title": "해야지",
+        "contents": "오늘도",
+        "like": 0,
+        "createdAt": "2022-03-16T09:45:04.577Z"
+      },
+      {
+        "number": 82477,
+        "writer": "정현목",
+        "title": "정",
+        "contents": "현목",
+        "like": 0,
+        "createdAt": "2022-03-16T09:44:11.601Z"
+      }
+    ]
+  }
+}
+
+19. 프로필이 전체 몇 개가 있는지 확인해 보세요.
+query {
+  fetchProfilesCount
+}
+
+{
+  "data": {
+    "fetchProfilesCount": 2495
+  }
+}
+
+20. 게시물은 몇 개가 있는지 조회해보세요.
+query {
+  fetchBoardsCount
+}
+
+{
+  "data": {
+    "fetchBoardsCount": 81170
+  }
+}

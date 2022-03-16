@@ -1,0 +1,414 @@
+1) createBoard를 활용해, 게시물을 하나 등록해 주세요.
+mutation {
+  createBoard(createBoardInput:{
+    writer:"김지웅",
+    password:"9380",
+    title:"제목입니다.",
+    contents:"본문입니다.",
+    youtubeUrl:"youtube.com",
+    boardAddress: {
+      zipcode:"1234",
+      address:"address",
+      addressDetail:"addressdetail"
+    },
+    images:["12345"]
+  }) {
+    _id,
+    writer,
+    title,
+    contents,
+    youtubeUrl,
+    likeCount,
+    dislikeCount,
+    images,
+    boardAddress{_id, zipcode, address, addressDetail, createdAt, updatedAt, deletedAt},
+    user{_id, email, name, picture, userPoint{_id,amount,}, createdAt, updatedAt, deletedAt},
+    createdAt,
+    updatedAt,
+    deletedAt
+  }
+}
+
+{
+  "data": {
+    "createBoard": {
+      "_id": "6231b8937d035600293d9641",
+      "writer": "김지웅",
+      "title": "제목입니다.",
+      "contents": "본문입니다.",
+      "youtubeUrl": "youtube.com",
+      "likeCount": 0,
+      "dislikeCount": 0,
+      "images": [
+        "12345"
+      ],
+      "boardAddress": {
+        "_id": "6231b8937d035600293d9640",
+        "zipcode": "1234",
+        "address": "address",
+        "addressDetail": "addressdetail",
+        "createdAt": "2022-03-16T10:14:43.635Z",
+        "updatedAt": "2022-03-16T10:14:43.635Z",
+        "deletedAt": null
+      },
+      "user": null,
+      "createdAt": "2022-03-16T10:14:43.644Z",
+      "updatedAt": "2022-03-16T10:14:43.644Z",
+      "deletedAt": null
+    }
+  }
+}
+
+2) 등록한 게시글의 제목과 내용은 무엇인가요?
+title:"제목입니다.",
+contents:"본문입니다.",
+
+3) 등록한 게시글에 좋아요를 1 올려주세요.
+mutation {
+  likeBoard(boardId:"6231b8937d035600293d9641")
+}
+
+{
+  "data": {
+    "likeBoard": 1
+  }
+}
+
+4) 등록한 게시글에 싫어요도 1 올려주세요.
+mutation{
+  dislikeBoard(boardId:"6231b8937d035600293d9641")
+}
+
+{
+  "data": {
+    "dislikeBoard": 1
+  }
+}
+
+5) 등록한 게시글의 좋아요와 싫어요는 각각 몇 개 인가요? 
+	(fetchBoard를 활용해서 확인해 보세요.)
+query {
+  fetchBoard(boardId:"6231b8937d035600293d9641"){
+    likeCount,
+    dislikeCount
+  }
+}
+
+{
+  "data": {
+    "fetchBoard": {
+      "likeCount": 1,
+      "dislikeCount": 1
+    }
+  }
+}
+
+6) 현재 등록된 게시글의 총 갯수는 몇 개 인가요? 
+	(어떤 API를 활용하면 좋을지 찾아보세요!)
+query {
+  fetchBoardsCount
+}
+
+{
+  "data": {
+    "fetchBoardsCount": 23
+  }
+}
+
+7) 등록한 게시글의 제목을 수정해 보세요!
+mutation {
+  updateBoard(updateBoardInput:{
+    title:"제목수정!!!"
+  },password:"9380", boardId:"6231b8937d035600293d9641"){
+    _id
+  }
+}
+
+{
+  "data": {
+    "updateBoard": {
+      "_id": "6231b8937d035600293d9641"
+    }
+  }
+}
+
+8) fetchBoards 전체 게시물 조회를 활용하여 방금 쓴 게시물을 검색해 보세요.
+	(search 변수를 활용해요!)
+query {
+  fetchBoards(search:"제목수정!!!"){
+    _id,
+    writer,
+    title
+  }
+}
+
+{
+  "data": {
+    "fetchBoards": [
+      {
+        "_id": "6231b8937d035600293d9641",
+        "writer": "김지웅",
+        "title": "제목수정!!!"
+      }
+    ]
+  }
+}
+
+9) 등록한 게시글에 댓글을 3개 추가해 보세요.
+mutation{
+  createBoardComment(createBoardCommentInput:{
+    writer:"김지웅",
+    password:"9380",
+    contents:"댓글입니다!",
+    rating: 5
+  }, boardId:"6231b8937d035600293d9641") {
+    _id,
+    writer,
+    contents,
+    rating
+    createdAt,
+    updatedAt,
+    deletedAt
+  }
+}
+
+{
+  "data": {
+    "createBoardComment": {
+      "_id": "6231baa47d035600293d964d",
+      "writer": "김지웅",
+      "contents": "댓글입니다!",
+      "rating": 5,
+      "createdAt": "2022-03-16T10:23:32.620Z",
+      "updatedAt": "2022-03-16T10:23:32.620Z",
+      "deletedAt": null
+    }
+  }
+}
+
+mutation{
+  createBoardComment(createBoardCommentInput:{
+    writer:"김지웅",
+    password:"9380",
+    contents:"댓글입니다!222",
+    rating: 2
+  }, boardId:"6231b8937d035600293d9641") {
+    _id,
+    writer,
+    contents,
+    rating
+    createdAt,
+    updatedAt,
+    deletedAt
+  }
+}
+
+{
+  "data": {
+    "createBoardComment": {
+      "_id": "6231bab87d035600293d964f",
+      "writer": "김지웅",
+      "contents": "댓글입니다!222",
+      "rating": 2,
+      "createdAt": "2022-03-16T10:23:52.184Z",
+      "updatedAt": "2022-03-16T10:23:52.184Z",
+      "deletedAt": null
+    }
+  }
+}
+
+mutation{
+  createBoardComment(createBoardCommentInput:{
+    writer:"김지웅",
+    password:"9380",
+    contents:"댓글입니다!333",
+    rating: 4
+  }, boardId:"6231b8937d035600293d9641") {
+    _id,
+    writer,
+    contents,
+    rating
+    createdAt,
+    updatedAt,
+    deletedAt
+  }
+}
+
+{
+  "data": {
+    "createBoardComment": {
+      "_id": "6231bab97d035600293d9650",
+      "writer": "김지웅",
+      "contents": "댓글입니다!333",
+      "rating": 4,
+      "createdAt": "2022-03-16T10:23:53.437Z",
+      "updatedAt": "2022-03-16T10:23:53.437Z",
+      "deletedAt": null
+    }
+  }
+}
+
+10) 첫번째 댓글의 내용을 수정해 보세요!
+mutation {
+  updateBoardComment(updateBoardCommentInput:{
+    contents:"댓글 수정입니다!!!"
+  },password:"9380",boardCommentId:"6231baa47d035600293d964d") {
+		_id,
+    writer,
+    contents,
+    rating,
+    createdAt,
+    updatedAt,
+    deletedAt
+  }
+}
+
+{
+  "data": {
+    "updateBoardComment": {
+      "_id": "6231baa47d035600293d964d",
+      "writer": "김지웅",
+      "contents": "댓글 수정입니다!!!",
+      "rating": 5,
+      "createdAt": "2022-03-16T10:23:32.620Z",
+      "updatedAt": "2022-03-16T10:23:32.620Z",
+      "deletedAt": null
+    }
+  }
+}
+
+11) 두번째 댓글을 삭제해 보세요!
+mutation {
+  deleteBoardComment(password:"9380",boardCommentId:"6231bab87d035600293d964f") 
+}
+
+{
+  "data": {
+    "deleteBoardComment": "6231bab87d035600293d964f"
+  }
+}
+
+12) 등록한 게시글에 달려있는 모든 댓글을 조회해 보세요.(작성자와 내용만 조회합니다.)
+query {
+  fetchBoardComments(boardId:"6231b8937d035600293d9641") {
+    writer,
+    contents
+  }
+}
+
+{
+  "data": {
+    "fetchBoardComments": [
+      {
+        "writer": "김지웅",
+        "contents": "댓글입니다!333"
+      },
+      {
+        "writer": "김지웅",
+        "contents": "댓글 수정입니다!!!"
+      }
+    ]
+  }
+}
+
+13) BEST 게시글을 조회해 보세요! (API 이름을 잘 찾아보세요!)
+query {
+  fetchBoardsOfTheBest {
+    _id,
+    writer,
+    title,
+    contents,
+    youtubeUrl,
+    likeCount,
+    dislikeCount,
+    createdAt,
+    updatedAt,
+    deletedAt
+  }
+}
+
+{
+  "data": {
+    "fetchBoardsOfTheBest": [
+      {
+        "_id": "6231bb5d7d035600293d9652",
+        "writer": "신홍석",
+        "title": "신홍석의 작품",
+        "contents": "신홍석의 작품 내용",
+        "youtubeUrl": null,
+        "likeCount": 20,
+        "dislikeCount": 0,
+        "createdAt": "2022-03-16T10:26:37.629Z",
+        "updatedAt": "2022-03-16T10:26:37.629Z",
+        "deletedAt": null
+      },
+      {
+        "_id": "6231b55c7d035600293d9636",
+        "writer": "백2기",
+        "title": "짠",
+        "contents": "내용?",
+        "youtubeUrl": null,
+        "likeCount": 13,
+        "dislikeCount": 6,
+        "createdAt": "2022-03-16T10:01:00.865Z",
+        "updatedAt": "2022-03-16T10:01:00.865Z",
+        "deletedAt": null
+      },
+      {
+        "_id": "6231b8af7d035600293d9643",
+        "writer": "성민",
+        "title": "changed",
+        "contents": "changed",
+        "youtubeUrl": "123",
+        "likeCount": 4,
+        "dislikeCount": 1,
+        "createdAt": "2022-03-16T10:15:11.575Z",
+        "updatedAt": "2022-03-16T10:15:11.575Z",
+        "deletedAt": null
+      },
+      {
+        "_id": "61ded8d7e4d8ec0029386ebc",
+        "writer": "save me",
+        "title": "피곤하다",
+        "contents": "살려줘",
+        "youtubeUrl": null,
+        "likeCount": 4,
+        "dislikeCount": 2,
+        "createdAt": "2022-01-12T13:34:15.540Z",
+        "updatedAt": "2022-01-12T13:34:15.540Z",
+        "deletedAt": null
+      }
+    ]
+  }
+}
+
+14) 회원가입을 해보세요! 사용자, 즉 User를 만드는 API입니다!
+mutation {
+  createUser(createUserInput:{
+    email:"wisehero7@gmail.com",
+    password:"9380",
+    name:"김지웅"
+  }) {
+    _id,
+    email,
+    name,
+    picture,
+    createdAt,
+    updatedAt,
+    deletedAt
+  }
+}
+
+{
+  "data": {
+    "createUser": {
+      "_id": "6231bc527d035600293d9654",
+      "email": "wisehero7@gmail.com",
+      "name": "김지웅",
+      "picture": null,
+      "createdAt": "2022-03-16T10:30:42.403Z",
+      "updatedAt": "2022-03-16T10:30:42.403Z",
+      "deletedAt": null
+    }
+  }
+}
