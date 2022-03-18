@@ -23,4 +23,10 @@ function solution(s) {
   }
 
   return answer;
+
+  //return Number(s);
+  //아래 방법은 추천하지 않음(협업시 일반적으로 사용하는 방법을 사용하는게 좋음)
+  //return +s;
+  //return s / 1;
+  //return s * 1;
 }
