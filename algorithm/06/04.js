@@ -25,6 +25,8 @@ reduce() 함수는 마지막 element의 callback 함수의 리턴값을 리턴�
 따라서, reduce() 함수를 사용하면, 배열을 순차적으로 순회하면서 배열의 값을 누적하는데 유용합니다.
 
 arr.reduce(callback(accumulator, currentValue [, currentIndex[, array]]) [, initialValue])
+
+initialValue가 생략된 경우, 첫번째 요소가 accumulator에 들어가고 두번째 요소부터 시작하는 듯
 */
 function solution(arr) {
   var answer = 0;
