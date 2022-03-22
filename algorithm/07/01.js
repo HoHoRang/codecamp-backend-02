@@ -17,5 +17,8 @@ function solution(s) {
     answer = s.substr(Math.floor(len / 2), 1);
   }
 
+  // 혹은 삼항연산자로 구현
+  answer = s.substr(Math.ceil(len / 2) - 1, len % 2 === 0 ? 2 : 1);
+
   return answer;
 }
