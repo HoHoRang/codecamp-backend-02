@@ -10,7 +10,7 @@ divisor는 자연수입니다.
 array는 길이 1 이상인 배열입니다.
 */
 function solution(arr, divisor) {
-  var answer = [];
+  const answer = [];
 
   arr.forEach((ele) => {
     if (ele % divisor === 0) {
@@ -25,4 +25,12 @@ function solution(arr, divisor) {
   }
 
   return answer;
+}
+
+function solution(arr, divisor) {
+  const answer = arr.filter((num) => {
+    return num % divisor === 0;
+  });
+
+  return answer.length === 0 ? [-1] : answer.sort((a, b) => a - b);
 }

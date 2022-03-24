@@ -34,3 +34,14 @@ function solution(s) {
 
   return answer;
 }
+
+function solution(s) {
+  const check = {};
+
+  s.toLowerCase()
+    .split("")
+    .forEach((str) => {
+      check[str] === undefined ? (check[str] = 1) : check[str]++;
+    });
+  return check.p === check.y;
+}

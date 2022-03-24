@@ -32,3 +32,18 @@ function solution(s) {
 
   return answer;
 }
+
+function solution(s) {
+  const answer = s
+    .split(" ")
+    .map((str) => {
+      return str
+        .split("")
+        .map((letter, i) => {
+          return i % 2 === 0 ? letter.toUpperCase() : letter.toLowerCase();
+        })
+        .join("");
+    })
+    .join(" ");
+  return answer;
+}
