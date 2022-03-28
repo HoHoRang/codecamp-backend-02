@@ -14,3 +14,39 @@ function solution(n) {
     return -1;
   }
 }
+
+function solution(n) {
+  return Number.isInteger(Math.sqrt(n)) ? (Math.sqrt(n) + 1) ** 2 : -1;
+}
+
+// function solution(n) {
+//   let sqrt = Math.sqrt(n);
+
+//   if (Number.isInteger(sqrt)) {
+//     return Math.pow(sqrt + 1, 2);
+//   } else {
+//     return -1;
+//   }
+// }
+
+// function solution(n) {
+//   let answer = -1;
+
+//   for (let i = 1; i ** 2 <= n; i++) {
+//     if (i ** 2 === n) {
+//       answer = i + 1;
+//       return answer ** 2;
+//     }
+//   }
+//   return answer;
+// }
+
+// function solution(n) {
+//   let answer = 1;
+
+//   while (answer ** 2 < n) {
+//     answer++;
+//   }
+
+//   return answer ** 2 === n ? (answer + 1) ** 2 : -1;
+// }

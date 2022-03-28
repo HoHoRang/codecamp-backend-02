@@ -7,13 +7,27 @@ arr은 길이 1 이상인 배열입니다.
 인덱스 i, j에 대해 i ≠ j이면 arr[i] ≠ arr[j] 입니다.
 */
 function solution(arr) {
-  let min = Math.min(...arr);
+  const min = Math.min(...arr);
 
-  let result = arr.filter((ele) => ele !== min);
+  const result = arr.filter((ele) => ele !== min);
 
-  if (result.length === 0) {
-    result.push(-1);
-  }
-
-  return result;
+  return result.length === 0 ? [-1] : result;
 }
+
+// function solution(arr) {
+//   const answer = [];
+
+//   let min = arr[0];
+//   for (let i = 1; i < arr.length; i++) {
+//     if (arr[i] < min) {
+//       min = arr[i];
+//     }
+//   }
+
+//   for (let i = 0; i < arr.length; i++) {
+//     if (arr[i] > min) {
+//       answer.push(arr[i]);
+//     }
+//   }
+//   return answer.length === 0 ? [-1] : answer;
+// }
