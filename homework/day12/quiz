@@ -1,0 +1,115 @@
+1. 타입스크립트 단답형 퀴즈
+  1-1) 타입 지정하기
+    1. 각각의 상수에 아래 예시처럼 적절한 타입을 명시해 주세요.
+
+    예) const appleCount: number = 13
+
+    a. const myname: string = “철수”
+    b. const breadCount: number = 2
+    c. const isActive: boolean = false
+
+  1-2) 배열형 타입 지정하기
+    1. 아래 배열 상수가 선언되어 있습니다. 각각의 배열 상수에 적절한 타입을 명시해 주세요.
+
+    예) const ages: number[] = [13, 8, 12, 16]
+
+    a. const classmates: string[] = [“철수”, “영희”, “훈이”]
+    b. const candyCounts: number[] = [2, 6, 4]
+    c. const moneyList: (number[] | string[]) = [1000, 2500, 4300] 또는 [”1000원”, “2500원”, “4300원”]
+    d. const isActiveList: (boolean | string)[] = [true, false, “false”, “true”, false]
+
+  1-3) 객체형 타입 지정하기
+    1. 아래 객체 상수가 선언되어 있습니다. 각각의 객체 상수에 적절한 타입을 명시해 주세요.
+
+    예) 아래 profiles에 들어갈 적절한 타입을 만들고 적용해 주세요.
+
+      interface IProfile {
+          name: string
+          age: number
+          school: string
+      }
+
+      const profiles: IProfile = {
+          name: “철수”,
+          age: 13,
+          school: “다람쥐초등학교”
+      }
+    
+    a. 아래 createBoardInput에 들어갈 적절한 타입을 만들고 적용해 주세요.
+
+      interface IBoard {
+        writer: string;
+        title: string;
+        contents: string;
+      }
+
+      const createBoardInput: IBoard = {
+        writer: “영희”,
+        title: “좋은 날씨 입니다~”,
+        contents: “오늘은 특히 더 날씨가 좋네요^^”
+      }
+
+    b. 아래 updateBoardInput1, updateBoardInput2에 공통으로 들어갈 적절한 타입을 만들고 적용해 주세요.
+
+      interface IBoard {
+        writer: string;
+        title?: string;
+        contents: string;
+      }
+
+      const updateBoardInput1: IBoard = {
+        writer: “영희”,
+        title: “좋은 날씨 입니다~”,
+        contents: “오늘은 특히 더 날씨가 좋네요^^”
+      }
+
+      const updateBoardInput2: IBoard = {
+        writer: “훈이”,
+        contents: “기존에 작성한 글 내용 일부가 수정됐네요”
+      }
+
+2. DI / IOC 단답형 퀴즈
+  2-1) 아래 DI 퀴즈를 풀어주세요.
+    1. DI는 무엇의 약자인가요?
+    
+    정답 > Dependency Injection(의존성 삽입)
+    
+    2. DI이면 싱글톤 패턴인가요?
+    
+    정답 > 아니오. DI이더라도 싱글톤 패턴이 아닐 수 있습니다.
+    
+
+    3. IOC는 무엇의 약자인가요?
+    
+    정답 > Inversion of Control(제어의 역전)
+    
+
+    4. Nest.js에서 IOC 컨테이너가 DI를 해주고 있나요?
+    
+    정답 > 네. Nest.js는 DI를 해주고 있습니다.
+    
+
+    5. javascript 언어로 사용 가능한 Backend 프레임워크에 Nest.js 가 있습니다.
+    
+    java 언어로 사용 가능한 Backend 프레임워크에는 Spring 이 있습니다.
+    
+    이 둘 모두 해당 프레임워크들에 IOC 컨테이너가 존재하며, DI를 지원하고 있나요?
+    
+    정답 > Spring, Nest.js에 모두 IOC 컨테이너가 있고, DI를 지원합니다.
+
+  2-2) 페어에게 설명하기
+    1. 자신이 이해한 DI 내용을 페어에게 설명해 보세요.
+
+    > 강한 결합의 경우 단점이 존재한다.
+    예를 들어, controller에서 service를 직접 new로 생성하여 사용하는 경우,
+    controller를 호출할 때마다 service가 생성되어 불필요한 메모리를 소비하게 된다.
+    또한, 객체들 간의 결합이 강해 service에 변경이 있을 경우, controller도 수정해야 하는 등의 단점이 있다.
+
+    느슨한 결합의 경우 강한 결합에 비교해 장점이 존재한다.
+    위의 예시에서 controller를 호출할 때마다 service가 생성되는 것이 아니라, controller를 호출하는 위치에서
+    한번만 service를 new로 생성하여 전달하기 때문에 불필요한 메모리 소비가 줄어든다.
+    또한 객체들 간의 결합이 약해 service 변경이 있더라도, controller의 수정이 적다.
+
+    추가로, Dependency Injection(의존성 주입)은 강한 결합을 느슨한 결합으로 전환시키는 방법으로,
+    사용자가 필요한 클래스를 객체 생성시 생성자에 전달해 주입이 가능하므로, 호출하는 부분에서만 수정하는 등의 장점이 있다.
+    또 싱글톤 패턴을 적용해 new 생성자 한 번으로 여러 곳에서 사용이 가능하다.
