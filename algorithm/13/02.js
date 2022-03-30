@@ -19,3 +19,14 @@ function solution(a, b) {
     return result;
   }
 }
+
+function solution(a, b) {
+  const min = Math.min(a, b);
+  const max = Math.max(a, b);
+
+  const answer = new Array(max - min).fill(1).reduce((acc, cur, i) => {
+    const num = min + cur + i;
+    return acc + num;
+  }, min);
+  return answer;
+}

@@ -15,3 +15,13 @@ function solution(x) {
 
   return x % sum === 0;
 }
+
+function solution(x) {
+  const sum = x
+    .toString()
+    .split("")
+    .reduce((acc, cur) => {
+      return acc + Number(cur);
+    }, 0);
+  return x % num === 0;
+}
