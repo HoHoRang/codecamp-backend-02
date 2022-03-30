@@ -72,3 +72,10 @@ MVC 패턴, 클래스 공부가 많이 필요함
 > Nest.js / Typescript
 
 공부하자...
+
+# 2022.03.30(수)
+
+> NestJS / MySQL / GraphQL
+
+MySQL을 설치해서 NestJS를 이용한 GraphQL-API를 작성했다.  
+docker-compose를 이용해 빌드하고 정상 작동 확인!
