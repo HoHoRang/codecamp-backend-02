@@ -16,17 +16,49 @@ function solution(s) {
   //숫자인 경우 그대로
   for (let i = 0; i < wordArr.length; i++) {
     if (wordArr[i]) {
-      if (isNaN(wordArr[i][0])) {
-        //문자인 경우 대문자 처리
-        wordArr[i] =
-          wordArr[i][0].toUpperCase() + wordArr[i].substring(1).toLowerCase();
-      } else {
-        wordArr[i] = wordArr[i][0] + wordArr[i].substring(1).toLowerCase();
-      }
+      wordArr[i] =
+        wordArr[i][0].toUpperCase() + wordArr[i].substring(1).toLowerCase();
     }
   }
   return wordArr.join(" ");
 }
+
+// substring()은 문자열에만 사용 가능한 함수(slice와 동일한 기능)
+// slice()는 문자열, 배열에 사용 가능한 함수(substring과 동일한 기능)
+// substr()은 문자열에서만 사용 가능한 함수(2번째 인자는 문자 몇 개를 자를건지 넣어야 함)
+// substr()은 되도록 사용하지 않도록 권장됨
+
+// function solution(s) {
+//   s = s
+//     .toLowerCase()
+//     .split(" ")
+//     .map((word) => {
+//       return word !== "" ? word[0].toUpperCase() + word.substring(1) : word;
+//     });
+
+//   return s.join(" ");
+// }
+
+// function solution(s) {
+//   s = s.toLowerCase();
+
+//   let idx = 0;
+//   let answer = "";
+//   for (let i = 0; i < s.length; i++) {
+//     let letter = s[i];
+
+//     if (letter === " ") {
+//       idx = 0;
+//     } else {
+//       if (idx === 0) {
+//         letter = s[i].toUpperCase();
+//       }
+//       idx++;
+//     }
+//     answer += letter;
+//   }
+//   return answer;
+// }
 
 // function solution(s) {
 //   return s
@@ -34,5 +66,3 @@ function solution(s) {
 //     .map((v) => v.charAt(0).toUpperCase() + v.substring(1).toLowerCase())
 //     .join(" ");
 // }
-
-console.log(solution("for   the   last   week"));
