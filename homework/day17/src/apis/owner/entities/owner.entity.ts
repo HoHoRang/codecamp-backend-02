@@ -5,6 +5,7 @@ import { Field, ObjectType } from '@nestjs/graphql';
 @ObjectType()
 export class Owner {
   @PrimaryGeneratedColumn('uuid')
+  @Field(() => String)
   id: number;
 
   @Column()
