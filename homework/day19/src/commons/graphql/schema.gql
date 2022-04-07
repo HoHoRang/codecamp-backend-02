@@ -1,0 +1,54 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Owner {
+  id: String!
+  ownerLoginId: String!
+  ownerPassword: String!
+  ownerName: String!
+  ownerRrn: String!
+  ownerPhone: String!
+  ownerEmail: String!
+  ownerNickname: String!
+  ownerJoinDate: DateTime!
+  ownerSubscStatus: Boolean!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Query {
+  fetchOwners: [Owner!]!
+  fetchOwnersWithDeleted: [Owner!]!
+  fetchOwner(ownerId: String!): Owner!
+}
+
+type Mutation {
+  createOwner(createOwnerInput: CreateOwnerInput!): Owner!
+  updateOwner(ownerId: String!, updateOwnerInput: UpdateOwnerInput!): Owner!
+  deleteOwner(ownerId: String!): Boolean!
+  restoreOwner(ownerId: String!): Boolean!
+}
+
+input CreateOwnerInput {
+  ownerLoginId: String!
+  ownerPassword: String!
+  ownerName: String!
+  ownerRrn: String!
+  ownerPhone: String!
+  ownerEmail: String!
+  ownerNickname: String!
+}
+
+input UpdateOwnerInput {
+  ownerLoginId: String
+  ownerPassword: String
+  ownerName: String
+  ownerRrn: String
+  ownerPhone: String
+  ownerEmail: String
+  ownerNickname: String
+}
