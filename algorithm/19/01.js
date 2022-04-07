@@ -50,32 +50,83 @@ function solution(answers) {
     }
   });
 
-  const count = {
-    stu1: 0,
-    stu2: 0,
-    stu3: 0,
-  };
+  const count = [0, 0, 0];
 
   for (let i = 0; i < answers.length; i++) {
     if (answers[i] === stu1[i]) {
-      count.stu1++;
+      count[0]++;
     }
     if (answers[i] === stu2[i]) {
-      count.stu2++;
+      count[1]++;
     }
     if (answers[i] === stu3[i]) {
-      count.stu3++;
+      count[2]++;
     }
   }
 
-  const max = Math.max(...Object.values(count));
+  const max = Math.max(...count);
   const result = [];
 
-  for (let i = 1; i <= 3; i++) {
-    if (max === count[`stu${i}`]) {
+  for (let i = 0; i <= 2; i++) {
+    if (max === count[i]) {
       result.push(i);
     }
   }
 
   return result;
 }
+
+// const answerTable = [
+//   [1, 2, 3, 4, 5],
+//   [2, 1, 2, 3, 2, 4, 2, 5],
+//   [3, 3, 1, 1, 2, 2, 4, 4, 5, 5],
+// ];
+
+// function solution(answers) {
+//   const answer = [0, 0, 0];
+
+//   for (let i = 0; i < answers.length; i++) {
+//     for (let l = 0; l < answerTable.length; l++) {
+//       if (answerTable[l][i % answerTable[l].length] === answers[i]) {
+//         answer[l]++;
+//       }
+//     }
+//   }
+
+//   const biggest = Math.max(...answer);
+//   const result = [];
+
+//   for (let i = 0; i < answer.length; i++) {
+//     if (answer[i] === biggest) {
+//       result.push(i + 1);
+//     }
+//   }
+//   return result;
+// }
+
+// const answerTable = [
+//   [1, 2, 3, 4, 5],
+//   [2, 1, 2, 3, 2, 4, 2, 5],
+//   [3, 3, 1, 1, 2, 2, 4, 4, 5, 5],
+// ];
+
+// function solution(answers) {
+//   const scoreList = answerTable.map((el, i) => {
+//     const score = answers.reduce((acc, cur, idx) => {
+//       return acc + (el[idx % el.length] === cur ? 1 : 0);
+//     }, 0);
+//     return { student: i + 1, score };
+//   });
+
+//   const biggest = Math.max(
+//     ...scoreList.map((el) => {
+//       return el.score;
+//     })
+//   );
+
+//   return scoreList
+//     .filter((el) => {
+//       return el.score === biggest;
+//     })
+//     .map((el) => el.student);
+// }
