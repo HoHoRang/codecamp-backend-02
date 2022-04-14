@@ -20,7 +20,10 @@ export class AuthResolver {
     @Context() context: any,
   ) {
     // 1. 로그인(이메일과 비밀번호가 일치하는 유저 찾기)
-    const user = await this.userService.findOneByEmail({ email });
+    const user = await this.userService.findOneByEmail({
+      email,
+      provider: 'SITE',
+    });
     // 2. 일치하는 유저가 없으면? 에러
     if (!user)
       throw new UnprocessableEntityException('존재하지 않는 이메일입니다.');

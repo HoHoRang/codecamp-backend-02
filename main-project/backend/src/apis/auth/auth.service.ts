@@ -14,14 +14,14 @@ export class AuthService {
     );
 
     // 개발환경
-    res.setHeader('Set-Cookie', `refreshToken=${refreshToken}`);
+    res.setHeader('Set-Cookie', `refreshToken=${refreshToken}; path=/;`);
 
     // 배포환경
-    // res.setHeader('Access-Control-Allow-Origin', 'https://myfrontsite.com')
+    //res.setHeader('Access-Control-Allow-Origin', 'http://localhost');
     // res.setHeader(
     //   'Set-Cookie',
-    //   `refreshToken=${refreshToken}; path=/; domain=.mybacksite.com; SameSite=None; Secure; httpOnly;`
-    // )
+    //   `refreshToken=${refreshToken}; path=/; domain=localhost; SameSite=None; Secure; httpOnly;`,
+    // );
   }
 
   getAccessToken({ user }) {

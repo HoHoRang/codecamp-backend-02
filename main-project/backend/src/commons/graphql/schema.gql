@@ -9,14 +9,15 @@ type UserGrade {
 
 type User {
   id: String!
-  userGrade: UserGrade!
-  userLoginId: String!
   userName: String!
-  userRrn: String!
-  userPhone: String!
   userEmail: String!
+  userPhone: String!
+  userLoginId: String!
+  userRrn: String!
   userNickname: String!
+  provider: String!
   userJoinDate: DateTime!
+  userGrade: UserGrade!
 }
 
 """
@@ -243,23 +244,25 @@ input UpdateStoreInput {
 }
 
 input CreateUserInput {
-  userLoginId: String!
-  userPassword: String!
   userName: String!
-  userRrn: String!
-  userPhone: String!
   userEmail: String!
-  userNickname: String!
+  userPhone: String!
+  userPassword: String!
+  userLoginId: String
+  userRrn: String
+  userNickname: String
+  provider: String!
   userGradeId: String
 }
 
 input UpdateUserInput {
-  userLoginId: String
-  userPassword: String
   userName: String
-  userRrn: String
-  userPhone: String
   userEmail: String
+  userPhone: String
+  userPassword: String
+  userLoginId: String
+  userRrn: String
   userNickname: String
+  provider: String
   userGradeId: String
 }

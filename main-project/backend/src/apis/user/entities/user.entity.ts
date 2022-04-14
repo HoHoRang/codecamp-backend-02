@@ -15,29 +15,9 @@ export class User {
   @Field(() => String)
   id: number;
 
-  @ManyToOne(() => UserGrade)
-  @Field(() => UserGrade)
-  userGrade: UserGrade;
-
-  @Column()
-  @Field(() => String)
-  userLoginId: string;
-
-  @Column()
-  //@Field(() => String)
-  userPassword: string;
-
   @Column()
   @Field(() => String)
   userName: string;
-
-  @Column()
-  @Field(() => String)
-  userRrn: string;
-
-  @Column()
-  @Field(() => String)
-  userPhone: string;
 
   @Column()
   @Field(() => String)
@@ -45,7 +25,27 @@ export class User {
 
   @Column()
   @Field(() => String)
+  userPhone: string;
+
+  @Column()
+  //@Field(() => String)
+  userPassword: string;
+
+  @Column({ nullable: true })
+  @Field(() => String)
+  userLoginId: string;
+
+  @Column({ nullable: true })
+  @Field(() => String)
+  userRrn: string;
+
+  @Column({ nullable: true })
+  @Field(() => String)
   userNickname: string;
+
+  @Column()
+  @Field(() => String)
+  provider: string;
 
   @Column({
     nullable: false,
@@ -54,6 +54,10 @@ export class User {
   })
   @Field(() => Date)
   userJoinDate: Date;
+
+  @ManyToOne(() => UserGrade)
+  @Field(() => UserGrade)
+  userGrade: UserGrade;
 
   @DeleteDateColumn()
   deletedAt: Date;

@@ -33,39 +33,51 @@ export class UserService {
     });
   }
 
-  async findOneByEmail({ email }) {
-    return await this.userRepository.findOne({ userEmail: email });
+  async findOneByEmail({ email, provider }) {
+    return await this.userRepository.findOne({
+      userEmail: email,
+      provider: provider,
+    });
   }
 
   async create({ createUserInput }) {
     const { userGradeId, ...user } = createUserInput;
 
-    console.log('************', userGradeId);
-
     const userInfo = await this.userRepository.findOne({
-      where: { userEmail: user.userEmail },
+      where: { userEmail: user.userEmail, provider: user.provider },
     });
 
     if (userInfo) throw new ConflictException('이미 등록된 이메일입니다.');
 
     const hashedPassword = await bcrypt.hash(user.userPassword, 10);
 
-    let result;
+    const saveInput = {
+      ...user,
+      userPassword: hashedPassword,
+    };
 
     if (userGradeId) {
-      result = await this.userRepository.save({
-        ...user,
-        userPassword: hashedPassword,
-        userGrade: { id: userGradeId },
-      });
-    } else {
-      result = await this.userRepository.save({
-        ...user,
-        userPassword: hashedPassword,
-      });
+      saveInput.userGrade = { id: userGradeId };
     }
 
-    return result;
+    return await this.userRepository.save(saveInput);
+
+    // let result;
+
+    // if (userGradeId) {
+    //   result = await this.userRepository.save({
+    //     ...user,
+    //     userPassword: hashedPassword,
+    //     userGrade: { id: userGradeId },
+    //   });
+    // } else {
+    //   result = await this.userRepository.save({
+    //     ...user,
+    //     userPassword: hashedPassword,
+    //   });
+    // }
+
+    // return result;
   }
 
   async update({ userId, updateUserInput }) {
