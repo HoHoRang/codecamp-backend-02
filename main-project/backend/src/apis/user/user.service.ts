@@ -35,8 +35,11 @@ export class UserService {
 
   async findOneByEmail({ email, provider }) {
     return await this.userRepository.findOne({
-      userEmail: email,
-      provider: provider,
+      where: {
+        email: email,
+        provider: provider,
+      },
+      relations: ['userGrade'],
     });
   }
 
@@ -44,16 +47,16 @@ export class UserService {
     const { userGradeId, ...user } = createUserInput;
 
     const userInfo = await this.userRepository.findOne({
-      where: { userEmail: user.userEmail, provider: user.provider },
+      where: { email: user.email, provider: user.provider },
     });
 
     if (userInfo) throw new ConflictException('이미 등록된 이메일입니다.');
 
-    const hashedPassword = await bcrypt.hash(user.userPassword, 10);
+    const hashedPassword = await bcrypt.hash(user.password, 10);
 
     const saveInput = {
       ...user,
-      userPassword: hashedPassword,
+      password: hashedPassword,
     };
 
     if (userGradeId) {
@@ -61,37 +64,28 @@ export class UserService {
     }
 
     return await this.userRepository.save(saveInput);
-
-    // let result;
-
-    // if (userGradeId) {
-    //   result = await this.userRepository.save({
-    //     ...user,
-    //     userPassword: hashedPassword,
-    //     userGrade: { id: userGradeId },
-    //   });
-    // } else {
-    //   result = await this.userRepository.save({
-    //     ...user,
-    //     userPassword: hashedPassword,
-    //   });
-    // }
-
-    // return result;
   }
 
   async update({ userId, updateUserInput }) {
+    const { userGradeId } = updateUserInput;
+
     const user = await this.userRepository.findOne({
       where: { id: userId },
     });
 
-    const hashedPassword = await bcrypt.hash(updateUserInput.userPassword, 10);
-
     const newUser = {
       ...user,
       ...updateUserInput,
-      userPassword: hashedPassword,
     };
+
+    if (updateUserInput.password) {
+      const hashedPassword = await bcrypt.hash(updateUserInput.password, 10);
+      newUser.password = hashedPassword;
+    }
+
+    if (userGradeId) {
+      newUser.userGrade = { id: userGradeId };
+    }
 
     return await this.userRepository.save(newUser);
   }
@@ -113,7 +107,6 @@ export class UserService {
     return result.affected ? true : false;
   }
 
-  // 2022.04.11 21일차 과제 추가
   async updatePassword({ userId, updatePassword }) {
     const user = await this.userRepository.findOne({
       where: { id: userId },
@@ -123,7 +116,7 @@ export class UserService {
 
     const newUser = {
       ...user,
-      userPassword: hashedPassword,
+      password: hashedPassword,
     };
 
     return await this.userRepository.save(newUser);

@@ -1,10 +1,21 @@
 import {
   Column,
+  CreateDateColumn,
   DeleteDateColumn,
   Entity,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Field, ObjectType, registerEnumType } from '@nestjs/graphql';
+
+export enum SUBSCRIBE_STATUS_ENUM {
+  SUBSCRIBE = 'SUBSCRIBE',
+  UNSUBSCRIBE = 'UNSUBSCRIBE',
+}
+
+registerEnumType(SUBSCRIBE_STATUS_ENUM, {
+  name: 'SUBSCRIBE_STATUS_ENUM',
+});
 
 @Entity()
 @ObjectType()
@@ -15,44 +26,53 @@ export class Owner {
 
   @Column()
   @Field(() => String)
-  ownerLoginId: string;
+  name: string;
+
+  @Column()
+  @Field(() => String)
+  email: string;
+
+  @Column()
+  @Field(() => String)
+  phone: string;
 
   @Column()
   //@Field(() => String)
-  ownerPassword: string;
+  password: string;
 
-  @Column()
+  @Column({ nullable: true })
   @Field(() => String)
-  ownerName: string;
+  loginId: string;
 
-  @Column()
+  @Column({ nullable: true })
   @Field(() => String)
-  ownerRrn: string;
+  rrn: string;
 
-  @Column()
+  @Column({ nullable: true })
   @Field(() => String)
-  ownerPhone: string;
+  nickname: string;
 
-  @Column()
+  @Column({ default: 'SITE' })
   @Field(() => String)
-  ownerEmail: string;
-
-  @Column()
-  @Field(() => String)
-  ownerNickname: string;
+  provider: string;
 
   @Column({
-    nullable: false,
-    default: () => 'CURRENT_TIMESTAMP',
-    type: 'timestamp',
+    type: 'enum',
+    enum: SUBSCRIBE_STATUS_ENUM,
+    default: SUBSCRIBE_STATUS_ENUM.UNSUBSCRIBE,
   })
-  @Field(() => Date)
-  ownerJoinDate: Date;
+  @Field(() => SUBSCRIBE_STATUS_ENUM)
+  subscribeStatus: string;
 
-  @Column({ default: false })
-  @Field(() => Boolean)
-  ownerSubscStatus: boolean;
+  @CreateDateColumn()
+  @Field(() => Date)
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  @Field(() => Date)
+  updatedAt: Date;
 
   @DeleteDateColumn()
+  @Field(() => Date)
   deletedAt: Date;
 }

@@ -2,10 +2,12 @@ import { Field, ObjectType } from '@nestjs/graphql';
 import { UserGrade } from 'src/apis/userGrade/entities/userGrade.entity';
 import {
   Column,
+  CreateDateColumn,
   DeleteDateColumn,
   Entity,
   ManyToOne,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 
 @Entity()
@@ -17,48 +19,49 @@ export class User {
 
   @Column()
   @Field(() => String)
-  userName: string;
+  name: string;
 
   @Column()
   @Field(() => String)
-  userEmail: string;
+  email: string;
 
   @Column()
   @Field(() => String)
-  userPhone: string;
+  phone: string;
 
   @Column()
   //@Field(() => String)
-  userPassword: string;
+  password: string;
 
   @Column({ nullable: true })
   @Field(() => String)
-  userLoginId: string;
+  loginId: string;
 
   @Column({ nullable: true })
   @Field(() => String)
-  userRrn: string;
+  rrn: string;
 
   @Column({ nullable: true })
   @Field(() => String)
-  userNickname: string;
+  nickname: string;
 
-  @Column()
+  @Column({ default: 'SITE' })
   @Field(() => String)
   provider: string;
-
-  @Column({
-    nullable: false,
-    default: () => 'CURRENT_TIMESTAMP',
-    type: 'timestamp',
-  })
-  @Field(() => Date)
-  userJoinDate: Date;
 
   @ManyToOne(() => UserGrade)
   @Field(() => UserGrade)
   userGrade: UserGrade;
 
+  @CreateDateColumn()
+  @Field(() => Date)
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  @Field(() => Date)
+  updatedAt: Date;
+
   @DeleteDateColumn()
+  @Field(() => Date)
   deletedAt: Date;
 }

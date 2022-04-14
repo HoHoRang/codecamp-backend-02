@@ -1,4 +1,7 @@
+import { UseGuards } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { GqlAuthAccessGuard } from 'src/commons/auth/gql-auth.guard';
+import { CurrentUser } from 'src/commons/auth/gql-user.param';
 import { CreateOwnerInput } from './dto/createOwner.input';
 import { UpdateOwnerInput } from './dto/updateOwner.input';
 
@@ -59,5 +62,29 @@ export class OwnerResolver {
     @Args('ownerId') ownerId: string, //
   ) {
     return await this.ownerService.restore({ ownerId });
+  }
+
+  @UseGuards(GqlAuthAccessGuard)
+  @Mutation(() => Owner)
+  async updateLoginOwnerPassword(
+    @Args('updatePassword') updatePassword: string,
+    @CurrentUser() currentUser: any,
+  ) {
+    return await this.ownerService.updatePassword({
+      ownerId: currentUser.id,
+      updatePassword,
+    });
+  }
+
+  @UseGuards(GqlAuthAccessGuard)
+  @Query(() => Owner)
+  async fetchLoginUser(@CurrentUser() currentUser: any) {
+    return await this.ownerService.findOne({ ownerId: currentUser.id });
+  }
+
+  @UseGuards(GqlAuthAccessGuard)
+  @Mutation(() => Boolean)
+  async deleteLoginUser(@CurrentUser() currentUser: any) {
+    return await this.ownerService.delete({ ownerId: currentUser.id });
   }
 }

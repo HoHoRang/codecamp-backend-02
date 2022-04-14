@@ -2,14 +2,14 @@ import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
-export class AuthService {
+export class OwnerAuthService {
   constructor(
     private readonly jwtService: JwtService, //
   ) {}
 
-  setRefreshToken({ user, res }) {
+  setRefreshToken({ owner, res }) {
     const refreshToken = this.jwtService.sign(
-      { email: user.email, sub: user.id }, //
+      { email: owner.email, sub: owner.id }, //
       { secret: 'myRefreshKey', expiresIn: '2w' },
     );
 
@@ -24,9 +24,9 @@ export class AuthService {
     // );
   }
 
-  getAccessToken({ user }) {
+  getAccessToken({ owner }) {
     return this.jwtService.sign(
-      { email: user.email, sub: user.id }, //
+      { email: owner.email, sub: owner.id }, //
       { secret: 'myAccessKey', expiresIn: '1h' },
     );
   }

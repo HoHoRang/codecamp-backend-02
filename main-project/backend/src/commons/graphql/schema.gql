@@ -9,21 +9,43 @@ type UserGrade {
 
 type User {
   id: String!
-  userName: String!
-  userEmail: String!
-  userPhone: String!
-  userLoginId: String!
-  userRrn: String!
-  userNickname: String!
+  name: String!
+  email: String!
+  phone: String!
+  loginId: String!
+  rrn: String!
+  nickname: String!
   provider: String!
-  userJoinDate: DateTime!
   userGrade: UserGrade!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  deletedAt: DateTime!
 }
 
 """
 A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
 """
 scalar DateTime
+
+type Owner {
+  id: String!
+  name: String!
+  email: String!
+  phone: String!
+  loginId: String!
+  rrn: String!
+  nickname: String!
+  provider: String!
+  subscribeStatus: SUBSCRIBE_STATUS_ENUM!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  deletedAt: DateTime!
+}
+
+enum SUBSCRIBE_STATUS_ENUM {
+  SUBSCRIBE
+  UNSUBSCRIBE
+}
 
 type Board {
   id: String!
@@ -34,18 +56,6 @@ type Board {
 type FoodType {
   id: String!
   typeName: String!
-}
-
-type Owner {
-  id: String!
-  ownerLoginId: String!
-  ownerName: String!
-  ownerRrn: String!
-  ownerPhone: String!
-  ownerEmail: String!
-  ownerNickname: String!
-  ownerJoinDate: DateTime!
-  ownerSubscStatus: Boolean!
 }
 
 type Store {
@@ -88,29 +98,34 @@ type Product {
   price: Int!
 }
 
+type SubscribeTransaction {
+  id: String!
+  impUid: String!
+  amount: Int!
+  status: SUBSCRIBE_TRANSACTION_STATUS_ENUM!
+  subscriptionStartDate: DateTime!
+  subscriptionEndDate: DateTime!
+  owner: Owner!
+  product: Product!
+  createdAt: DateTime!
+}
+
+enum SUBSCRIBE_TRANSACTION_STATUS_ENUM {
+  PAYMENT
+  CANCEL
+}
+
 type Query {
-  fetchBoards: [Board!]!
-  fetchBoardsWithDeleted: [Board!]!
-  fetchBoard(boardId: String!): Board!
-  fetchFoodTypes: [FoodType!]!
-  fetchFoodTypesWithDeleted: [FoodType!]!
-  fetchFoodType(foodTypeId: String!): FoodType!
   fetchOwners: [Owner!]!
   fetchOwnersWithDeleted: [Owner!]!
   fetchOwner(ownerId: String!): Owner!
-  fetchPosts: [Post!]!
-  fetchPostsWithDeleted: [Post!]!
-  fetchPost(postId: String!): Post!
+  fetchLoginUser: User!
   fetchProducts: [Product!]!
   fetchProductsWithDeleted: [Product!]!
   fetchProduct(productId: String!): Product!
-  fetchStores: [Store!]!
-  fetchStoresWithDeleted: [Store!]!
-  fetchStore(storeId: String!): Store!
   fetchUsers: [User!]!
   fetchUsersWithDeleted: [User!]!
   fetchUser(userId: String!): User!
-  fetchLoginUser: User!
   fetchUserGrades: [UserGrade!]!
   fetchUserGradesWithDeleted: [UserGrade!]!
   fetchUserGrade(userGradeId: String!): UserGrade!
@@ -119,98 +134,52 @@ type Query {
 type Mutation {
   login(email: String!, password: String!): String!
   restoreAccessToken: String!
-  createBoard(createBoardInput: CreateBoardInput!): Board!
-  updateBoard(boardId: String!, updateBoardInput: UpdateBoardInput!): Board!
-  deleteBoard(boardId: String!): Boolean!
-  restoreBoard(boardId: String!): Boolean!
-  createFoodType(typeName: String!): FoodType!
-  updateFoodType(foodTypeId: String!, typeName: String!): FoodType!
-  deleteFoodType(foodTypeId: String!): Boolean!
-  restoreFoodType(foodTypeId: String!): Boolean!
   createOwner(createOwnerInput: CreateOwnerInput!): Owner!
   updateOwner(ownerId: String!, updateOwnerInput: UpdateOwnerInput!): Owner!
   deleteOwner(ownerId: String!): Boolean!
   restoreOwner(ownerId: String!): Boolean!
-  createPost(createPostInput: CreatePostInput!): Post!
-  updatePost(postId: String!, updatePostInput: UpdatePostInput!): Post!
-  deletePost(postId: String!): Boolean!
-  restorePost(postId: String!): Boolean!
+  updateLoginOwnerPassword(updatePassword: String!): Owner!
+  deleteLoginUser: Boolean!
+  OwnerLogin(email: String!, password: String!): String!
+  restoreOwnerAccessToken: String!
   createProduct(createProductInput: CreateProductInput!): Product!
   updateProduct(productId: String!, updateProductInput: UpdateProductInput!): Product!
   deleteProduct(productId: String!): Boolean!
   restoreProduct(productId: String!): Boolean!
-  createStore(createStoreInput: CreateStoreInput!): Store!
-  updateStore(storeId: String!, updateStoreInput: UpdateStoreInput!): Store!
-  deleteStore(storeId: String!): Boolean!
-  restoreStore(storeId: String!): Boolean!
+  createSubscribeTransaction(impUid: String!, amount: Float!, productId: String!): SubscribeTransaction!
   createUser(createUserInput: CreateUserInput!): User!
   updateUser(userId: String!, updateUserInput: UpdateUserInput!): User!
   deleteUser(userId: String!): Boolean!
   restoreUser(userId: String!): Boolean!
-  updateUserPassword(updatePassword: String!): User!
-  deleteLoginUser: Boolean!
+  updateLoginUserPassword(updatePassword: String!): User!
   createUserGrade(gradeName: String!): UserGrade!
   updateUserGrade(userGradeId: String!, gradeName: String!): UserGrade!
   deleteUserGrade(userGradeId: String!): Boolean!
   restoreUserGrade(userGradeId: String!): Boolean!
 }
 
-input CreateBoardInput {
-  boardName: String!
-  description: String!
-}
-
-input UpdateBoardInput {
-  boardName: String
-  description: String
-}
-
 input CreateOwnerInput {
-  ownerLoginId: String!
-  ownerPassword: String!
-  ownerName: String!
-  ownerRrn: String!
-  ownerPhone: String!
-  ownerEmail: String!
-  ownerNickname: String!
+  name: String!
+  email: String!
+  phone: String!
+  password: String!
+  loginId: String
+  rrn: String
+  nickname: String
+  provider: String = "SITE"
+  subscribeStatus: SUBSCRIBE_STATUS_ENUM
 }
 
 input UpdateOwnerInput {
-  ownerLoginId: String
-  ownerPassword: String
-  ownerName: String
-  ownerRrn: String
-  ownerPhone: String
-  ownerEmail: String
-  ownerNickname: String
-}
-
-input CreatePostInput {
-  title: String!
-  contents: String!
-  likeCount: Int
-  dislikeCount: Int
-  hitCount: Int
-  updateDate: DateTime
-  boardId: String!
-  storeId: String!
-  foodTypeId: String!
-  userId: String!
-  tags: [String!]!
-}
-
-input UpdatePostInput {
-  title: String
-  contents: String
-  likeCount: Int
-  dislikeCount: Int
-  hitCount: Int
-  updateDate: DateTime
-  boardId: String
-  storeId: String
-  foodTypeId: String
-  userId: String
-  tags: [String!]
+  name: String
+  email: String
+  phone: String
+  password: String
+  loginId: String
+  rrn: String
+  nickname: String
+  provider: String = "SITE"
+  subscribeStatus: SUBSCRIBE_STATUS_ENUM
 }
 
 input CreateProductInput {
@@ -225,44 +194,26 @@ input UpdateProductInput {
   price: Int
 }
 
-input CreateStoreInput {
-  storeName: String!
-  address: String!
-  latitude: Float!
-  longitude: Float!
-  category: String!
-  ownerId: String!
-}
-
-input UpdateStoreInput {
-  storeName: String
-  address: String
-  latitude: Float
-  longitude: Float
-  category: String
-  ownerId: String
-}
-
 input CreateUserInput {
-  userName: String!
-  userEmail: String!
-  userPhone: String!
-  userPassword: String!
-  userLoginId: String
-  userRrn: String
-  userNickname: String
-  provider: String!
+  name: String!
+  email: String!
+  phone: String!
+  password: String!
+  loginId: String
+  rrn: String
+  nickname: String
+  provider: String = "SITE"
   userGradeId: String
 }
 
 input UpdateUserInput {
-  userName: String
-  userEmail: String
-  userPhone: String
-  userPassword: String
-  userLoginId: String
-  userRrn: String
-  userNickname: String
-  provider: String
+  name: String
+  email: String
+  phone: String
+  password: String
+  loginId: String
+  rrn: String
+  nickname: String
+  provider: String = "SITE"
   userGradeId: String
 }

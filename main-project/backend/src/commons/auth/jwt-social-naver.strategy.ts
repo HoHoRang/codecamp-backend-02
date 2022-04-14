@@ -26,10 +26,10 @@ export class JwtNaverStrategy extends PassportStrategy(NaverStrategy, 'naver') {
 
     return {
       // 네이버에서 넘겨주지 않는 값은 default로 저장
-      userName: !profile.name ? 'default' : profile.name,
-      userEmail: !profile.email ? 'defaultEmail' : profile.email,
-      userPhone: !profile.mobile ? '010-0000-0000' : profile.mobile,
-      userPassword: '1111',
+      name: !profile.name ? 'default' : profile.name,
+      email: !profile.email ? 'defaultEmail' : profile.email,
+      phone: !profile.mobile ? '010-0000-0000' : profile.mobile,
+      password: '1111',
       provider: 'NAVER',
     };
   }

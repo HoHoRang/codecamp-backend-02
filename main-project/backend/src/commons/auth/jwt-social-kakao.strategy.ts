@@ -18,12 +18,12 @@ export class JwtKakaoStrategy extends PassportStrategy(KakaoStrategy, 'kakao') {
 
     return {
       // 카카오에서 넘겨주지 않는 값은 default로 저장
-      userName: !profile.displayName ? 'default' : profile.displayName,
-      userEmail: !profile._json.kakao_account.email
+      name: !profile.displayName ? 'default' : profile.displayName,
+      email: !profile._json.kakao_account.email
         ? 'defaultEmail'
         : profile._json.kakao_account.email,
-      userPhone: !profile.mobile ? '010-0000-0000' : profile.mobile,
-      userPassword: '1111',
+      phone: !profile.mobile ? '010-0000-0000' : profile.mobile,
+      password: '1111',
       provider: 'KAKAO',
     };
   }

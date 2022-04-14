@@ -1,25 +1,32 @@
 import { Field, InputType } from '@nestjs/graphql';
+import { SUBSCRIBE_STATUS_ENUM } from '../entities/owner.entity';
 
 @InputType()
 export class CreateOwnerInput {
   @Field(() => String)
-  ownerLoginId: string;
+  name: string;
 
   @Field(() => String)
-  ownerPassword: string;
+  email: string;
 
   @Field(() => String)
-  ownerName: string;
+  phone: string;
 
   @Field(() => String)
-  ownerRrn: string;
+  password: string;
 
-  @Field(() => String)
-  ownerPhone: string;
+  @Field(() => String, { nullable: true })
+  loginId: string;
 
-  @Field(() => String)
-  ownerEmail: string;
+  @Field(() => String, { nullable: true })
+  rrn: string;
 
-  @Field(() => String)
-  ownerNickname: string;
+  @Field(() => String, { nullable: true })
+  nickname: string;
+
+  @Field(() => String, { nullable: true, defaultValue: 'SITE' })
+  provider: string;
+
+  @Field(() => SUBSCRIBE_STATUS_ENUM, { nullable: true })
+  subscribeStatus: string;
 }

@@ -12,6 +12,7 @@ import { UserService } from './user.service';
 export class UserResolver {
   constructor(private readonly userService: UserService) {}
 
+  //==============================================================
   @Query(() => [User])
   fetchUsers() {
     return this.userService.findAll();
@@ -64,10 +65,9 @@ export class UserResolver {
     return await this.userService.restore({ userId });
   }
 
-  // 2022.04.11 21일차 과제 추가
   @UseGuards(GqlAuthAccessGuard)
   @Mutation(() => User)
-  async updateUserPassword(
+  async updateLoginUserPassword(
     @Args('updatePassword') updatePassword: string,
     @CurrentUser() currentUser: any,
   ) {
@@ -77,14 +77,12 @@ export class UserResolver {
     });
   }
 
-  // 2022.04.11 21일차 과제 추가
   @UseGuards(GqlAuthAccessGuard)
   @Query(() => User)
   async fetchLoginUser(@CurrentUser() currentUser: any) {
     return await this.userService.findOne({ userId: currentUser.id });
   }
 
-  // 2022.04.11 21일차 과제 추가
   @UseGuards(GqlAuthAccessGuard)
   @Mutation(() => Boolean)
   async deleteLoginUser(@CurrentUser() currentUser: any) {
