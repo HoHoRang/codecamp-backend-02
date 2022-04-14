@@ -47,3 +47,60 @@ function solution(N, stages) {
 
   return result;
 }
+
+// function solution(N, stages) {
+//   stages.sort((a, b) => a - b);
+
+//   let allUsers = stages.length;
+//   const answer = new Array(N)
+//     .fill(1)
+//     .map((num, i) => {
+//       const stage = num + i;
+//       const arr = stages.slice(
+//         stages.indexOf(stage),
+//         stages.lastIndexOf(stage) + 1
+//       );
+//       const fail = arr.length / allUsers;
+//       allUsers -= arr.length;
+
+//       return { stage, fail };
+//     })
+//     .sort((a, b) => {
+//       return b.fail - a.fail;
+//     })
+//     .map((el) => el.stage);
+//   return answer;
+// }
+
+// function solution(N, stages) {
+//   stages.sort((a, b) => a - b);
+
+//   const infos = [];
+//   for (let i = 1; i <= N; i++) {
+//     infos.push({
+//       stage: i,
+//       users: 0,
+//       fail: 0,
+//     });
+//   }
+
+//   let allUsers = stages.length;
+//   for (let i = 0; i < stages.length; i++) {
+//     if (infos[stages[i] - 1]) {
+//       infos[stages[i] - 1].users++;
+
+//       if (stages[i] !== stages[i + 1]) {
+//         const fail = infos[stages[i] - 1].users / allUsers;
+//         allUsers -= infos[stages[i] - 1].users;
+
+//         infos[stages[i] - 1].fail = fail;
+//       }
+//     }
+//   }
+
+//   return infos
+//     .sort((a, b) => {
+//       return b.fail - a.fail;
+//     })
+//     .map((el) => el.stage);
+// }
