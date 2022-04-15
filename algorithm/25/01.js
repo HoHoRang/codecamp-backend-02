@@ -53,3 +53,30 @@ function solution(board, moves) {
 
   return result;
 }
+
+// function solution(board, moves) {
+//   let answer = 0;
+//   const bucket = [];
+
+//   moves.forEach((move) => {
+//     let stop = false;
+//     board.forEach((location) => {
+//       const doll = location[move - 1];
+//       if (stop === false) {
+//         if (doll !== 0) {
+//           location[move - 1] = 0;
+
+//           if (bucket[bucket.length - 1] === doll) {
+//             bucket.splice(bucket.length - 1, 1);
+//             answer += 2;
+//           } else {
+//             bucket.push(doll);
+//           }
+
+//           stop = true;
+//         }
+//       }
+//     });
+//   });
+//   return answer;
+// }
