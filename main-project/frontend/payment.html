@@ -15,9 +15,37 @@
       src="https://unpkg.com/axios/dist/axios.min.js"
     ></script>
     <script>
+      async function login() {
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+
+        const data = await axios.post(
+          "http://localhost:3000/graphql",
+          {
+            query: `
+                      mutation {
+                        OwnerLogin(email: "${email}", password: "${password}")
+                      }
+                    `,
+          },
+          {}
+        );
+
+        console.log(data);
+
+        if (data.data.errors) {
+          alert(data.data.errors[0].message);
+        } else {
+          document.getElementById("userToken").innerText =
+            data.data.data.OwnerLogin;
+          alert("성공!");
+        }
+      }
+
       function mypayment() {
         const myAmount = Number(document.getElementById("amount").value);
-        const productId = "1d522553-943d-4733-a76a-f1383b7aa2dc"; // product 테이블에 있는 ID여야 함
+        const productId = document.getElementById("productId").value; //"1d522553-943d-4733-a76a-f1383b7aa2dc"; // product 테이블에 있는 ID여야 함
+        const token = document.getElementById("tokenInput").value;
 
         const IMP = window.IMP; // 생략 가능
         IMP.init("imp60984124"); // Example: imp00000000
@@ -48,29 +76,95 @@
                       mutation {
                         createSubscribeTransaction(impUid: "${rsp.imp_uid}", amount: ${rsp.paid_amount}, productId: "${productId}") {
                           id
+                          impUid
                         }
                       }
                     `,
                 },
                 {
                   headers: {
-                    authorization:
-                      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Ind3d0BhYWEuY29tIiwic3ViIjoiZDJmZmU2ODMtYTkxNC00ZWIzLWE0OTQtNDVhNzFlOTM5OTNhIiwiaWF0IjoxNjQ5OTU0Mzg4LCJleHAiOjE2NDk5NTc5ODh9.JLXDClnlqcg1agYNzICDj2Imugl5VVVBGwUCi0FBfuY",
+                    authorization: `Bearer ${token}`,
                   },
                 }
               );
 
               console.log(data);
+              document.getElementById("uid").innerText =
+                data.data.data.createSubscribeTransaction.impUid;
+              alert("성공!");
             } else {
               // 결제 실패시
             }
           }
         );
       }
+
+      async function cancelPay() {
+        const impUid = document.getElementById("impUid").value;
+        const paidAmount = Number(document.getElementById("paidAmount").value);
+        const token = document.getElementById("tokenInput2").value;
+
+        const data = await axios.post(
+          "http://localhost:3000/graphql",
+          {
+            query: `
+                      mutation {
+                        cancelSubscribeTransaction(impUid:"${impUid}", amount:${paidAmount}) {
+                          id
+                        }
+                      }
+                    `,
+          },
+          {
+            headers: {
+              authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        console.log(data);
+
+        if (data.data.errors) {
+          alert(data.data.errors[0].message);
+        } else {
+          alert("성공!");
+        }
+      }
     </script>
   </head>
   <body>
-    결제할 금액: <input type="text" id="amount" />
+    Email: <input type="text" id="email" />
+    <br />
+    Password:
+    <input type="password" id="password" />
+    <br />
+    <button onclick="login()">로그인</button>
+    <br />
+    User Token:
+    <div id="userToken"></div>
+    <br />
+    <br />
+    결제할 금액: <input type="number" id="amount" />
+    <br />
+    상품 ID:
+    <input type="text" id="productId" />
+    <br />
+    User Token:
+    <input type="text" id="tokenInput" />
+    <br />
     <button onclick="mypayment()">결제하기</button>
+    <br />
+    impUid:
+    <div id="uid"></div>
+    <br />
+    <br />
+    imp_uid: <input type="text" id="impUid" />
+    <br />
+    paid_amount: <input type="text" id="paidAmount" />
+    <br />
+    User Token:
+    <input type="text" id="tokenInput2" />
+    <br />
+    <button onclick="cancelPay()">환불하기</button>
   </body>
 </html>

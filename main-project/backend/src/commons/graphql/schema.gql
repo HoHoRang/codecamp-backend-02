@@ -147,6 +147,7 @@ type Mutation {
   deleteProduct(productId: String!): Boolean!
   restoreProduct(productId: String!): Boolean!
   createSubscribeTransaction(impUid: String!, amount: Float!, productId: String!): SubscribeTransaction!
+  cancelSubscribeTransaction(impUid: String!, amount: Float!): SubscribeTransaction!
   createUser(createUserInput: CreateUserInput!): User!
   updateUser(userId: String!, updateUserInput: UpdateUserInput!): User!
   deleteUser(userId: String!): Boolean!

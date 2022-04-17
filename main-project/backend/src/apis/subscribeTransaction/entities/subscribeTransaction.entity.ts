@@ -37,11 +37,11 @@ export class SubscribeTransaction {
   @Field(() => SUBSCRIBE_TRANSACTION_STATUS_ENUM)
   status: string;
 
-  @Column()
+  @Column({ nullable: true })
   @Field(() => Date)
   subscriptionStartDate: Date;
 
-  @Column()
+  @Column({ nullable: true })
   @Field(() => Date)
   subscriptionEndDate: Date;
 
