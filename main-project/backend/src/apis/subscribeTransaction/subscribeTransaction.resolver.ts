@@ -76,7 +76,7 @@ export class SubscribeTransactionResolver {
     });
 
     if (cancelResult) {
-      // impoert에 취소요청 완료되면, 취소로 데이터 생성
+      // import에 취소요청 완료되면, 취소로 데이터 생성
       return await this.subscribeTransactionService.createCancel({
         impUid,
         amount,

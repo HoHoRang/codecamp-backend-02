@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { IamportService } from '../iamport/iamport.service';
-import { User } from '../user/entities/user.entity';
+import { Owner } from '../owner/entities/owner.entity';
 import { SubscribeTransaction } from './entities/subscribeTransaction.entity';
 import { SubscribeTransactionResolver } from './subscribeTransaction.resolver';
 import { SubscribeTransactionService } from './subscribeTransaction.service';
@@ -10,7 +10,7 @@ import { SubscribeTransactionService } from './subscribeTransaction.service';
   imports: [
     TypeOrmModule.forFeature([
       SubscribeTransaction, //
-      User,
+      Owner,
     ]),
   ],
   providers: [
