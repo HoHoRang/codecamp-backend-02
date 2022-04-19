@@ -134,6 +134,7 @@ type Query {
 type Mutation {
   login(email: String!, password: String!): String!
   restoreAccessToken: String!
+  uploadFile(files: [Upload!]!): [String!]!
   createOwner(createOwnerInput: CreateOwnerInput!): Owner!
   updateOwner(ownerId: String!, updateOwnerInput: UpdateOwnerInput!): Owner!
   deleteOwner(ownerId: String!): Boolean!
@@ -142,6 +143,7 @@ type Mutation {
   deleteLoginUser: Boolean!
   OwnerLogin(email: String!, password: String!): String!
   restoreOwnerAccessToken: String!
+  createImages(postId: String!, urls: [String!]!): Boolean!
   createProduct(createProductInput: CreateProductInput!): Product!
   updateProduct(productId: String!, updateProductInput: UpdateProductInput!): Product!
   deleteProduct(productId: String!): Boolean!
@@ -158,6 +160,9 @@ type Mutation {
   deleteUserGrade(userGradeId: String!): Boolean!
   restoreUserGrade(userGradeId: String!): Boolean!
 }
+
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload
 
 input CreateOwnerInput {
   name: String!

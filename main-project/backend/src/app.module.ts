@@ -5,9 +5,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './apis/auth/auth.module';
 import { OwnerAuthModule } from './apis/auth/owner.auth.module';
 import { BoardModule } from './apis/board/board.module';
+import { FileModule } from './apis/file/file.module';
 import { FoodTypeModule } from './apis/foodType/foodType.module';
 import { OwnerModule } from './apis/owner/owner.module';
 import { PostModule } from './apis/post/post.module';
+import { PostImageModule } from './apis/postImage/postImage.module';
 import { ProductModule } from './apis/product/product.module';
 import { StoreModule } from './apis/store/store.module';
 import { SubscribeTransactionModule } from './apis/subscribeTransaction/subscribeTransaction.module';
@@ -20,10 +22,12 @@ import { UserGradeModule } from './apis/userGrade/userGrade.module';
   imports: [
     AuthModule,
     BoardModule,
+    FileModule,
     FoodTypeModule,
     OwnerModule,
     OwnerAuthModule,
     PostModule,
+    PostImageModule,
     ProductModule,
     StoreModule,
     SubscribeTransactionModule,

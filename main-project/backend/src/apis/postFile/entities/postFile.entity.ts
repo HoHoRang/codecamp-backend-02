@@ -1,17 +1,28 @@
+import { Field } from '@nestjs/graphql';
 import { Post } from 'src/apis/post/entities/post.entity';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class PostFile {
   @PrimaryGeneratedColumn('uuid')
+  @Field(() => String)
   id: number;
 
   @ManyToOne(() => Post)
+  @Field(() => Post)
   post: Post;
 
   @Column()
+  @Field(() => String)
   url: string;
 
-  @Column()
-  createDate: Date;
+  @CreateDateColumn()
+  @Field(() => Date)
+  createdAt: Date;
 }
