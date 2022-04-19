@@ -36,3 +36,16 @@ function solution(n, arr1, arr2) {
   }
   return result;
 }
+
+// function solution(n, arr1, arr2) {
+//   const answer = arr1.map((map1, i) => {
+//     map1 = map1.toString(2).padStart(n, "0");
+//     const map2 = arr2[i].toString(2).padStart(n, "0");
+
+//     const result = map1.split("").reduce((acc, cur, i) => {
+//       return (acc += cur === "1" || map2[i] === "1" ? "#" : " ");
+//     }, "");
+//     return result;
+//   });
+//   return answer;
+// }
