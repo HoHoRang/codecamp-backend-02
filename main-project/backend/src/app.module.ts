@@ -15,6 +15,7 @@ import { StoreModule } from './apis/store/store.module';
 import { SubscribeTransactionModule } from './apis/subscribeTransaction/subscribeTransaction.module';
 import { UserModule } from './apis/user/user.module';
 import { UserGradeModule } from './apis/userGrade/userGrade.module';
+import { ConfigModule } from '@nestjs/config';
 // import { AppController } from './app.controller';
 // import { AppService } from './app.service';
 
@@ -48,6 +49,9 @@ import { UserGradeModule } from './apis/userGrade/userGrade.module';
       entities: [__dirname + '/apis/**/*.entity.*'],
       synchronize: true,
       logging: true,
+    }),
+    ConfigModule.forRoot({
+      isGlobal: true,
     }),
   ],
   // controllers: [AppController],
