@@ -1,0 +1,40 @@
+select count(*) from board;
+
+select *
+  from board
+ where title = '0.2806090063234875'
+;
+
+select *
+  from board
+ where number = 6
+;
+
+explain
+ select *
+   from board
+  where title = '0.2806090063234875'
+;
+
+explain
+ select *
+   from board
+  where number = 6
+;
+
+show index from board;
+
+create index idx_title on board(title);
+
+show index from board;
+
+explain
+ select *
+   from board
+  where title = '0.2806090063234875'
+;
+
+select *
+  from board
+ where title = '0.2806090063234875'
+;
