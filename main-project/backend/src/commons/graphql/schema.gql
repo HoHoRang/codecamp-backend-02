@@ -119,13 +119,14 @@ type Query {
   fetchOwners: [Owner!]!
   fetchOwnersWithDeleted: [Owner!]!
   fetchOwner(ownerId: String!): Owner!
-  fetchLoginUser: User!
+  fetchLoginOwner: Owner!
   fetchProducts: [Product!]!
   fetchProductsWithDeleted: [Product!]!
   fetchProduct(productId: String!): Product!
   fetchUsers: [User!]!
   fetchUsersWithDeleted: [User!]!
   fetchUser(userId: String!): User!
+  fetchLoginUser: User!
   fetchUserGrades: [UserGrade!]!
   fetchUserGradesWithDeleted: [UserGrade!]!
   fetchUserGrade(userGradeId: String!): UserGrade!
@@ -133,6 +134,7 @@ type Query {
 
 type Mutation {
   login(email: String!, password: String!): String!
+  logout: String!
   restoreAccessToken: String!
   uploadFile(files: [Upload!]!): [String!]!
   createOwner(createOwnerInput: CreateOwnerInput!): Owner!
@@ -140,10 +142,12 @@ type Mutation {
   deleteOwner(ownerId: String!): Boolean!
   restoreOwner(ownerId: String!): Boolean!
   updateLoginOwnerPassword(updatePassword: String!): Owner!
-  deleteLoginUser: Boolean!
-  OwnerLogin(email: String!, password: String!): String!
+  deleteLoginOwner: Boolean!
+  ownerLogin(email: String!, password: String!): String!
+  ownerLogout: String!
   restoreOwnerAccessToken: String!
   createImages(postId: String!, urls: [String!]!): Boolean!
+  updateImages(postId: String!, urls: [String!]!): Boolean!
   createProduct(createProductInput: CreateProductInput!): Product!
   updateProduct(productId: String!, updateProductInput: UpdateProductInput!): Product!
   deleteProduct(productId: String!): Boolean!
@@ -155,6 +159,7 @@ type Mutation {
   deleteUser(userId: String!): Boolean!
   restoreUser(userId: String!): Boolean!
   updateLoginUserPassword(updatePassword: String!): User!
+  deleteLoginUser: Boolean!
   createUserGrade(gradeName: String!): UserGrade!
   updateUserGrade(userGradeId: String!, gradeName: String!): UserGrade!
   deleteUserGrade(userGradeId: String!): Boolean!

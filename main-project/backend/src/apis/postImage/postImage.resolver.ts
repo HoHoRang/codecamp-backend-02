@@ -17,4 +17,13 @@ export class PostImageResolver {
   ) {
     return this.postImageService.create({ postId, urls });
   }
+
+  @UseGuards(GqlAuthAccessGuard)
+  @Mutation(() => Boolean)
+  updateImages(
+    @Args('postId') postId: string, //
+    @Args({ name: 'urls', type: () => [String] }) urls: string[],
+  ) {
+    return this.postImageService.update({ postId, urls });
+  }
 }

@@ -78,13 +78,13 @@ export class OwnerResolver {
 
   @UseGuards(GqlAuthAccessGuard)
   @Query(() => Owner)
-  async fetchLoginUser(@CurrentUser() currentUser: any) {
+  async fetchLoginOwner(@CurrentUser() currentUser: any) {
     return await this.ownerService.findOne({ ownerId: currentUser.id });
   }
 
   @UseGuards(GqlAuthAccessGuard)
   @Mutation(() => Boolean)
-  async deleteLoginUser(@CurrentUser() currentUser: any) {
+  async deleteLoginOwner(@CurrentUser() currentUser: any) {
     return await this.ownerService.delete({ ownerId: currentUser.id });
   }
 }

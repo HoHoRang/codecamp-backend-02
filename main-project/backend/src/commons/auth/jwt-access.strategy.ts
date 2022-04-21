@@ -1,18 +1,39 @@
-import { Injectable } from '@nestjs/common';
+import {
+  Injectable,
+  CACHE_MANAGER,
+  Inject,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
+import { Cache } from 'cache-manager';
 
 @Injectable()
 export class JwtAccessStrategy extends PassportStrategy(Strategy, 'access') {
-  constructor() {
+  constructor(
+    @Inject(CACHE_MANAGER)
+    private readonly cacheManager: Cache, //
+  ) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       secretOrKey: 'myAccessKey',
+      passReqToCallback: true,
     });
   }
 
-  validate(payload) {
-    console.log(payload);
+  async validate(req, payload) {
+    const accessToken = req.headers.authorization.split(' ')[1];
+
+    console.log('payload: ', payload);
+
+    const accessExist = await this.cacheManager.get(
+      `accessToken:${accessToken}`,
+    );
+
+    if (accessExist) {
+      throw new UnauthorizedException('로그아웃 된 유저입니다!');
+    }
+
     return {
       id: payload.sub,
       email: payload.email,
