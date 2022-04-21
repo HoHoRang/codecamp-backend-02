@@ -33,5 +33,3 @@ lerna-debug.log*
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
-
-canvas-sum-347705-6864c32b66a1.json
