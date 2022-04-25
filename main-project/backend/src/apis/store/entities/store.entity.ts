@@ -2,6 +2,7 @@ import { Field, Float, ObjectType } from '@nestjs/graphql';
 import { Owner } from 'src/apis/owner/entities/owner.entity';
 import {
   Column,
+  CreateDateColumn,
   DeleteDateColumn,
   Entity,
   ManyToOne,
@@ -39,13 +40,9 @@ export class Store {
   @Field(() => String)
   category: string;
 
-  @Column({
-    nullable: false,
-    default: () => 'CURRENT_TIMESTAMP',
-    type: 'timestamp',
-  })
+  @CreateDateColumn()
   @Field(() => Date)
-  createDate: Date;
+  createdAt: Date;
 
   @DeleteDateColumn()
   deletedAt: Date;

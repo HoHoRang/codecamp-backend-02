@@ -50,7 +50,7 @@ enum SUBSCRIBE_STATUS_ENUM {
 type Board {
   id: String!
   boardName: String!
-  createDate: DateTime!
+  createdAt: DateTime!
 }
 
 type FoodType {
@@ -66,7 +66,7 @@ type Store {
   latitude: Float!
   longitude: Float!
   category: String!
-  createDate: DateTime!
+  createdAt: DateTime!
 }
 
 type Post {
@@ -81,8 +81,9 @@ type Post {
   likeCount: Int!
   dislikeCount: Int!
   hitCount: Int!
-  createDate: DateTime!
-  updateDate: DateTime
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  deletedAt: DateTime!
 }
 
 type Tag {
@@ -120,6 +121,9 @@ type Query {
   fetchOwnersWithDeleted: [Owner!]!
   fetchOwner(ownerId: String!): Owner!
   fetchLoginOwner: Owner!
+  fetchPosts(search: String!, type: SEARCH_TYPE_ENUM!): [Post!]!
+  fetchPostsWithDeleted: [Post!]!
+  fetchPost(postId: String!): Post!
   fetchProducts: [Product!]!
   fetchProductsWithDeleted: [Product!]!
   fetchProduct(productId: String!): Product!
@@ -130,6 +134,11 @@ type Query {
   fetchUserGrades: [UserGrade!]!
   fetchUserGradesWithDeleted: [UserGrade!]!
   fetchUserGrade(userGradeId: String!): UserGrade!
+}
+
+enum SEARCH_TYPE_ENUM {
+  TITLE
+  CONTENTS
 }
 
 type Mutation {
@@ -146,6 +155,10 @@ type Mutation {
   ownerLogin(email: String!, password: String!): String!
   ownerLogout: String!
   restoreOwnerAccessToken: String!
+  createPost(createPostInput: CreatePostInput!): Post!
+  updatePost(postId: String!, updatePostInput: UpdatePostInput!): Post!
+  deletePost(postId: String!): Boolean!
+  restorePost(postId: String!): Boolean!
   createImages(postId: String!, urls: [String!]!): Boolean!
   updateImages(postId: String!, urls: [String!]!): Boolean!
   createProduct(createProductInput: CreateProductInput!): Product!
@@ -191,6 +204,34 @@ input UpdateOwnerInput {
   nickname: String
   provider: String = "SITE"
   subscribeStatus: SUBSCRIBE_STATUS_ENUM
+}
+
+input CreatePostInput {
+  title: String!
+  contents: String!
+  likeCount: Int
+  dislikeCount: Int
+  hitCount: Int
+  updateDate: DateTime
+  boardId: String!
+  storeId: String!
+  foodTypeId: String!
+  userId: String!
+  tags: [String!]!
+}
+
+input UpdatePostInput {
+  title: String
+  contents: String
+  likeCount: Int
+  dislikeCount: Int
+  hitCount: Int
+  updateDate: DateTime
+  boardId: String
+  storeId: String
+  foodTypeId: String
+  userId: String
+  tags: [String!]
 }
 
 input CreateProductInput {

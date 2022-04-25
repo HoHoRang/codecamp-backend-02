@@ -6,12 +6,14 @@ import { Tag } from 'src/apis/tag/entities/tag.entity';
 import { User } from 'src/apis/user/entities/user.entity';
 import {
   Column,
+  CreateDateColumn,
   DeleteDateColumn,
   Entity,
   JoinTable,
   ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 
 @Entity()
@@ -62,21 +64,15 @@ export class Post {
   @Field(() => Int)
   hitCount: number;
 
-  @Column({
-    nullable: false,
-    default: () => 'CURRENT_TIMESTAMP',
-    type: 'timestamp',
-  })
+  @CreateDateColumn()
   @Field(() => Date)
-  createDate: Date;
+  createdAt: Date;
 
-  @Column({
-    nullable: true,
-    type: 'timestamp',
-  })
-  @Field(() => Date, { nullable: true })
-  updateDate: Date;
+  @UpdateDateColumn()
+  @Field(() => Date)
+  updatedAt: Date;
 
   @DeleteDateColumn()
+  @Field(() => Date)
   deletedAt: Date;
 }

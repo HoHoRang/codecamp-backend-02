@@ -1,6 +1,7 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import {
   Column,
+  CreateDateColumn,
   DeleteDateColumn,
   Entity,
   PrimaryGeneratedColumn,
@@ -17,13 +18,9 @@ export class Board {
   @Field(() => String)
   boardName: string;
 
-  @Column({
-    nullable: false,
-    default: () => 'CURRENT_TIMESTAMP',
-    type: 'timestamp',
-  })
+  @CreateDateColumn()
   @Field(() => Date)
-  createDate: Date;
+  createdAt: Date;
 
   @DeleteDateColumn()
   deletedAt: Date;
