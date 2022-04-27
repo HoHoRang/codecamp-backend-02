@@ -40,6 +40,7 @@ export class PostResolver {
   ) {
     const resultPosts = [];
     let posts;
+    search = search.toLowerCase();
 
     // 1. Redis에 검색 결과 캐시되어 있는지 확인
     const searchCache = await this.cacheManager.get<[string]>(
@@ -80,11 +81,20 @@ export class PostResolver {
         posts = await this.elasticsearchService.search({
           index: 'mypost',
           query: {
-            wildcard: {
-              title: {
-                value: `*${search}*`,
-              },
-            },
+            bool: {
+              should: [{
+                  "prefix":{ "title": search} 
+                },
+                {
+                  "prefix":{ "title.keyword": search }
+                }
+              ]
+            }
+            // wildcard: {
+            //   title: {
+            //     value: `*${search}*`,
+            //   },
+            // },
             //match: { title: search },
           },
         });
@@ -92,11 +102,20 @@ export class PostResolver {
         posts = await this.elasticsearchService.search({
           index: 'mypost',
           query: {
-            wildcard: {
-              contents: {
-                value: `*${search}*`,
-              },
-            },
+            bool: {
+              should: [{
+                  "prefix":{ "contents": search} 
+                },
+                {
+                  "prefix":{ "contents.keyword": search }
+                }
+              ]
+            }
+            // wildcard: {
+            //   contents: {
+            //     value: `*${search}*`,
+            //   },
+            // },
             //match: { contents: search },
           },
         });
