@@ -91,3 +91,50 @@ function solution(record) {
   // console.log(enterHistory);
   return enterHistory;
 }
+
+// function solution(record) {
+//   const users = {};
+//   const answer = [];
+
+//   for (let i = 0; i < record.length; i++) {
+//     const infos = record[i].split(" ");
+
+//     if (infos[2]) {
+//       users[infos[1]] = infos[2];
+//     }
+
+//     if (infos[0] !== "Change") {
+//       answer.push({ uid: infos[1], action: infos[0] });
+//     }
+//   }
+
+//   for (let idx in answer) {
+//     answer[idx] =
+//       users[answer[idx].uid] +
+//       (answer[idx].action === "Enter"
+//         ? "님이 들어왔습니다."
+//         : "님이 나갔습니다.");
+//   }
+
+//   return answer;
+// }
+
+// function solution(record) {
+//   record = record.map((el) => el.split(" "));
+//   const users = record.reduce((acc, cur) => {
+//     if (cur[2]) {
+//       acc[cur[1]] = cur[2];
+//     }
+//     return acc;
+//   }, {});
+
+//   return record.reduce((acc, cur) => {
+//     if (cur[0] !== "Change") {
+//       acc.push(
+//         `${users[cur[1]]}님이 ` +
+//           (cur[0] === "Enter" ? "들어왔습니다." : "나갔습니다.")
+//       );
+//     }
+//     return acc;
+//   }, []);
+// }
