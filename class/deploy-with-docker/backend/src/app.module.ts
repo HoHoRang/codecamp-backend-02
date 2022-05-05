@@ -9,6 +9,8 @@ import { PointTransactionModule } from './apis/pointTransaction/pointTransaction
 import { ProductsModule } from './apis/products/products.module';
 import { ProductsCategoryModule } from './apis/productsCategory/productsCategory.module';
 import { UsersModule } from './apis/users/users.module';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
 // import { AppController } from './app.controller';
 // import { AppService } from './app.service';
 
@@ -28,17 +30,17 @@ import { UsersModule } from './apis/users/users.module';
     }),
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'my-database-02',
+      host: '10.17.32.3',
       port: 3306,
       username: 'root',
       password: 'root',
-      database: 'mypod02',
+      database: 'myserver02',
       entities: [__dirname + '/apis/**/*.entity.*'],
       synchronize: true,
       logging: true,
     }),
   ],
-  // controllers: [AppController],
-  // providers: [AppService],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}
