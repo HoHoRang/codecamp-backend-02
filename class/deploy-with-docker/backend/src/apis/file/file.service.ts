@@ -10,9 +10,9 @@ interface IFile {
 export class FileService {
   async upload({ files }: IFile) {
     const storage = new Storage({
-      projectId: '프로젝트ID',
-      keyFilename: '키파일',
-    }).bucket('버켓명');
+      projectId: 'global-timer-347010',
+      keyFilename: '/my-secret/gcp-file-storage.json',
+    }).bucket('main-project-images');
 
     // 일단 먼저 다 받기
     const waitedFiles = await Promise.all(files);
