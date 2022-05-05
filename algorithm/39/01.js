@@ -43,3 +43,109 @@ function solution(s) {
   // console.log(count);
   return count;
 }
+
+// function solution(s) {
+//   const numbering = {
+//     "[": 0,
+//     "]": 1,
+//     "{": 2,
+//     "}": 3,
+//     "(": 4,
+//     ")": 5,
+//   };
+//   let answer = 0;
+
+//   for (let i = 0; i < s.length; i++) {
+//     s = s.substring(1) + s[0];
+//     const stack = [];
+
+//     for (let l = 0; l < s.length; l++) {
+//       if (numbering[s[l]] % 2 === 0) {
+//         // 열린 괄호인 경우
+//         stack.push(numbering[s[l]]);
+//       } else {
+//         // 닫힌 괄호인 경우 열린 괄호가 있어야 한다.
+//         if (stack.includes(numbering[s[l]] - 1)) {
+//           const last = stack[stack.length - 1];
+//           if (last === numbering[s[l]] - 1) {
+//             // 닫힌 괄호일 때, 배열의 끝이 열린 괄호인지 판단한다.
+//             stack.pop();
+//           }
+//         } else {
+//           // 닫힌 괄호는 있지만, 열린 괄호가 없는 경우
+//           break;
+//         }
+//       }
+
+//       // 마지막 괄호를 체크하면서 스택이 비어있는 경우 올바른 문자열
+//       if (l === s.length - 1) {
+//         if (stack.length === 0) {
+//           answer++;
+//         }
+//       }
+//     }
+//   }
+//   return answer;
+// }
+
+// function solution(s) {
+//   const numbering = {
+//     "[": 0,
+//     "]": 1,
+//     "{": 2,
+//     "}": 3,
+//     "(": 4,
+//     ")": 5,
+//   };
+
+//   return s.split("").reduce((acc, cur, i) => {
+//     const str = s.substring(i + 1) + s.substring(0, i + 1);
+//     let fail = false;
+
+//     const stack = str.split("").reduce((acc2, cur2) => {
+//       if (fail === false) {
+//         if (numbering[cur2] % 2 === 0) {
+//           // 열린 괄호인지
+//           acc2.push(numbering[cur2]);
+//         } else {
+//           // 닫힌 괄호인지
+//           if (acc2[acc2.length - 1] === numbering[cur2] - 1) {
+//             acc2.pop();
+//           } else if (acc2.includes(numbering[cur2] - 1) === false) {
+//             fail = true;
+//           }
+//         }
+//       }
+//       return acc2;
+//     }, []);
+//     return (acc += stack.length === 0 && fail === false ? 1 : 0);
+//   }, 0);
+// }
+
+// 실패한 케이스
+// function solution(s) {
+//   let answer = 0;
+
+//   for (let i = 0; i < s.length; i++) {
+//     s = s.substring(1) + s[0];
+
+//     const list = { large: 0, middle: 0, small: 0 };
+//     for (let l = 0; l < s.length; l++) {
+//       if (s[l] === "]") list.large--;
+//       if (s[l] === "}") list.middle--;
+//       if (s[l] === ")") list.small--;
+
+//       if (s[l] === "[") list.large++;
+//       if (s[l] === "{") list.middle++;
+//       if (s[l] === "(") list.small++;
+
+//       if (list.large === -1 || list.middle === -1 || list.small === -1) {
+//         break;
+//       } else if (l === s.length - 1) {
+//         answer++;
+//       }
+//     }
+//   }
+
+//   return answer;
+// }
