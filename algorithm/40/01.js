@@ -88,3 +88,56 @@ function solution(msg) {
   // console.log(result);
   return result;
 }
+
+// function solution(msg) {
+//   const dictionary = {};
+//   let number = 1;
+//   for (let i = 65; i <= 90; i++) {
+//     dictionary[String.fromCharCode(i)] = number;
+//     number++;
+//   }
+
+//   const answer = [];
+//   let str = "";
+//   for (let i = 0; i < msg.length; i++) {
+//     str += msg[i];
+//     const next = msg[i + 1] === undefined ? str : str + msg[i + 1];
+
+//     if (i === msg.length - 1) {
+//       answer.push(dictionary[str]);
+//     } else if (dictionary[next] === undefined) {
+//       dictionary[next] = number;
+//       number++;
+
+//       answer.push(dictionary[str]);
+//       str = "";
+//     }
+//   }
+
+//   return answer;
+// }
+
+// function solution(msg) {
+//   const dictionary = {};
+//   let number = 1;
+//   for (let i = 65; i <= 90; i++) {
+//     dictionary[String.fromCharCode(i)] = number;
+//     number++;
+//   }
+
+//   let str = "";
+//   return msg.split("").reduce((acc, cur, i) => {
+//     str += cur;
+//     const next = str + msg[i + 1];
+
+//     if (dictionary[next] === undefined) {
+//       dictionary[next] = number;
+//       number++;
+
+//       acc.push(dictionary[str]);
+//       str = "";
+//     }
+
+//     return acc;
+//   }, []);
+// }
