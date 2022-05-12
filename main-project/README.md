@@ -51,6 +51,8 @@ https://hohorang.shop/graphql (백엔드 서버에요. 비용이 나가서 지�
 
 ### GraphQL API
 
+<img src="https://img.shields.io/badge/GraphQL-E10098?style=flat&logo=GraphQL&logoColor=white"/>
+
 <a href="https://graphql.org/" target="blank"><img src="https://user-images.githubusercontent.com/15374108/167302286-435d57b0-a9f0-490e-88f0-4b202d22f34d.png" width="400"/></a>
 
 ### Elastic Search
